@@ -30,3 +30,5 @@ headers, moves = pgn_read(pgn)
 print(pgn)
 for move in moves[:5]:
     print("d")
+print("KÄse")
+ 
