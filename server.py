@@ -4,7 +4,6 @@ import chess.pgn
 
 
 SSEHC = Flask(__name__)
-CORS(SSEHC)
 
 pgn = ""
 
@@ -20,5 +19,3 @@ def analyze_pgn():
 
 if __name__ == '__main__':
     SSEHC.run(host="0.0.0.0", port=5000, debug=True)
-
-
