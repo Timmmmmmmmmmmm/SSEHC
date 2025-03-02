@@ -4,7 +4,7 @@ import chess.pgn
 
 
 SSEHC = Flask(__name__)
-
+CORS(SSEHC)
 pgn = ""
 
 @SSEHC.route('/analyze', methods=['POST'])
