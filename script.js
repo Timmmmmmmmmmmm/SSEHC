@@ -10,6 +10,7 @@ document.getElementById("analyze").addEventListener("click", function(){
         },
         body: JSON.stringify({ pgn: pgnInput})
     })
+    .then(document.getElementById("output").textContent = "Loading...")
     .then(response => response.json())
     .then(data => {
         pgnText = data.pgn;
