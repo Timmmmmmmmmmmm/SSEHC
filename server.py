@@ -3,12 +3,12 @@ from flask_cors import CORS
 import chess.pgn
 
 
-server1 = Flask(__name__)
-CORS(server1)
+SSEHC = Flask(__name__)
+CORS(SSEHC)
 
 pgn = ""
 
-@server1.route('/analyze', methods=['POST'])
+@SSEHC.route('/analyze', methods=['POST'])
 def analyze_pgn():
     data = request.json  # Die JSON-Daten von JavaScript holen
     pgn_text = data.get("pgn", "")
@@ -19,6 +19,6 @@ def analyze_pgn():
     return jsonify(response)
 
 if __name__ == '__main__':
-    server1.run(host="0.0.0.0", port=5000, debug=True)
+    SSEHC.run(host="0.0.0.0", port=5000, debug=True)
 
 
