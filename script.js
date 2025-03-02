@@ -19,5 +19,6 @@ document.getElementById("analyze").addEventListener("click", function(){
     })
     .catch(error => console.error("Error:", error));
 
-
+    
 });
+

@@ -6,6 +6,8 @@ import chess.pgn
 server1 = Flask(__name__)
 CORS(server1)
 
+pgn = ""
+
 @server1.route('/analyze', methods=['POST'])
 def analyze_pgn():
     data = request.json  # Die JSON-Daten von JavaScript holen
@@ -17,9 +19,6 @@ def analyze_pgn():
     return jsonify(response)
 
 if __name__ == '__main__':
-    server1.run(debug=True)
+    server1.run(host="0.0.0.0", port=5000, debug=True)
 
-
-def process_pgn(pgn_Text):
-    print("Pgn: ", pgn_Text)
 
