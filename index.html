@@ -1,24 +1,50 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schachmaster by Tim</title>
+
+    <!-- jQuery einbinden -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Chessboard.js und Chess.js -->
+    <link rel="stylesheet" href="css/chessboard.css">
+
+    <script defer src="js/chessboard.js"></script>
+
 </head>
 
 <body> 
-    <script>
-        
-    </script>
     <h1>Schachmaster Analyse by Tim</h1>
-    <br>
-    <input type="submit" value="up" style="display:none">
-    <textarea id="pgn_input" placeholder="Paste PGN here..." value="" autofocus rows="2" cols="30"></textarea>
-    <br>
-    <button id="analyze" size="">Analyse...🔎</button>
-    <p id="output"></p>
 
-    <script src="script.js"></script>
+    <!-- Brett Anzeige -->
+    <div id="board" style="width: 400px"></div>
+
+    <br>
+    <textarea id="pgn_input" placeholder="Paste PGN here..." autofocus rows="2" cols="30"></textarea>
+    <br>
+    <button id="analyze">Analyse...🔎</button>
+    <p id="output"></p> 
+
+    <!-- Brett wird nach Laden der Seite erstellt -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof Chessboard !== "undefined") {
+                var board = Chessboard("board", {
+                    position: "start",
+                    pieceTheme: "https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png"
+                });
+            } else {
+                console.error("⚠️ Chessboard.js wurde nicht geladen!");
+            }
+        });
+        </script>
+        
+        
+
+    <!-- Analyze -->
+    <script defer src="script.js" defer></script>
+
 </body>
 </html>

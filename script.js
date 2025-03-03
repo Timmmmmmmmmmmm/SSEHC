@@ -1,15 +1,9 @@
 let pgnText;
-const initialPosition = [
-    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'], // 8. Reihe (schwarz)
-    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'], // 7. Reihe (schwarz)
-    ['', '', '', '', '', '', '', ''],           // 6.
-    ['', '', '', '', '', '', '', ''],           // 5.
-    ['', '', '', '', '', '', '', ''],           // 4.
-    ['', '', '', '', '', '', '', ''],           // 3.
-    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'], // 2. Reihe (weiß)
-    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']  // 1. Reihe (weiß)
-  ];
 
+
+// for(let i = 0; i < initialPosition.length; i++){
+//     document.getElementById("board").textContent = initialPosition[i];
+// }
 document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
 
