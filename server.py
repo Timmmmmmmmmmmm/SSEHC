@@ -21,11 +21,11 @@ def analyze_pgn():
     if not game:
         return ValueError("PGN velerhaft")
     
-    return game
     headers  = game.headers
 
-
     board = game.board()
+
+    return jsonify(game)
 
     moves = []
     for move in game.mainline_moves():
