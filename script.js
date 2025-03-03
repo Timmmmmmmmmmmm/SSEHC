@@ -26,7 +26,6 @@ document.getElementById("analyze").addEventListener("click", function(){
         pgnText = data.pgn;
         document.getElementById("output").textContent = pgnText;
         console.log("Server response", data);
-        console.log(pgnText);
     })
     
 

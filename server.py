@@ -18,19 +18,6 @@ def analyze_pgn():
     pgn_stream = StringIO(pgn_text)
 
     game = chess.pgn.read_game(pgn_stream)
-    
-
-    headers  = game.headers
-
-    analysis_data = [moves, 0]
-
-    moves = []
-    for move in game.mainline_moves():
-        moves.append({
-            "move": move.uci(),  # UCI Format "e2e4"
-            
-        })
-    
 
     response = {"message": "PGN empfangen!", "pgn": pgn_text}
 
