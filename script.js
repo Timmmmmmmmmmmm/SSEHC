@@ -1,8 +1,18 @@
 let pgnText;
+const initialPosition = [
+    ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'], // 8. Reihe (schwarz)
+    ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'], // 7. Reihe (schwarz)
+    ['', '', '', '', '', '', '', ''],           // 6.
+    ['', '', '', '', '', '', '', ''],           // 5.
+    ['', '', '', '', '', '', '', ''],           // 4.
+    ['', '', '', '', '', '', '', ''],           // 3.
+    ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'], // 2. Reihe (weiß)
+    ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']  // 1. Reihe (weiß)
+  ];
 
 document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
-
+    
     fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
         headers: {
@@ -14,7 +24,7 @@ document.getElementById("analyze").addEventListener("click", function(){
     .then(response => response.json())
     .then(data => {
         pgnText = data.pgn;
-        document.getElementById("output").textContent = data.pgn;
+        document.getElementById("output").textContent = pgnText;
         console.log("Server response", data);
         console.log(pgnText);
     })
@@ -22,4 +32,3 @@ document.getElementById("analyze").addEventListener("click", function(){
 
     
 });
-  

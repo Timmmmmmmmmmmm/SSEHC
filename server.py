@@ -19,26 +19,24 @@ def analyze_pgn():
 
     game = chess.pgn.read_game(pgn_stream)
     if not game:
-        return ValueError("PGN velerhaft")
+        return jsonify(ValueError("PGN velerhaft"))
     
     headers  = game.headers
 
-    board = game.board()
-
-    return jsonify(game)
+    analysis_data = [moves,]
 
     moves = []
     for move in game.mainline_moves():
-        board.push(move)
         moves.append({
             "move": move.uci(),  # UCI Format "e2e4"
-            "fen": board.fen(),  # FEN Notation 
+            
         })
     
 
-    #response = {"message": "PGN empfangen!", "pgn": pgn_text}
+    response = {"message": "PGN empfangen!", "pgn": pgn_text}
 
-    #return jsonify(response)
+    
+    return jsonify(response)
 
 if __name__ == '__main__':
     SSEHC.run(host="0.0.0.0", port=5000, debug=True)
