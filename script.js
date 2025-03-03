@@ -12,7 +12,7 @@ const initialPosition = [
 
 document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
-    
+
     fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
         headers: {
@@ -28,7 +28,7 @@ document.getElementById("analyze").addEventListener("click", function(){
         console.log("Server response", data);
         console.log(pgnText);
     })
-    .catch(error => console.error("Error:", error));
+    
 
     
 });

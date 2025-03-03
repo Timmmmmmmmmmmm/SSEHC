@@ -18,12 +18,11 @@ def analyze_pgn():
     pgn_stream = StringIO(pgn_text)
 
     game = chess.pgn.read_game(pgn_stream)
-    if not game:
-        return jsonify(ValueError("PGN velerhaft"))
     
+
     headers  = game.headers
 
-    analysis_data = [moves,]
+    analysis_data = [moves, 0]
 
     moves = []
     for move in game.mainline_moves():
