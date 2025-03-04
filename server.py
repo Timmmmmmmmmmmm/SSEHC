@@ -13,8 +13,8 @@ STOCKFISH_PATH = "C:/Users/timka/Downloads/PROJEKT_SSECH/stockfish/stockfish-win
 
 @SSEHC.route('/analyze', methods=['POST'])
 def analyze_pgn():
-    data = request.json  #JSON-Daten von JavaScript 
-    pgn_text = data.get("pgn", "")
+    data = request.get_json()  #JSON-Daten von JavaScript 
+    pgn_text = data.get("PGN", "")
     pgn_stream = StringIO(pgn_text)
 
     game = chess.pgn.read_game(pgn_text)

@@ -10,16 +10,14 @@ document.getElementById("analyze").addEventListener("click", function(){
 
     fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ pgn: pgnInput})
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({PGN: pgnInput})
     })
     .then(response => response.json())
     .then(data => {
         pgnText = data.pgn;
         document.getElementById("output").textContent = pgnText;
         console.log("Server response", data);
-    })
+    });
     
 });
