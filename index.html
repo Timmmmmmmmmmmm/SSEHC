@@ -20,10 +20,8 @@
 
     <!-- Brett Anzeige -->
     <div id="board" style="width: 400px"></div>
-
     <br>
-    <textarea id="pgn_input" placeholder="Paste PGN here..." autofocus rows="2" cols="30"></textarea>
-    <br>
+    <textarea id="pgn_input" placeholder="Paste PGN here..." autofocus rows="2" cols="30"></textarea><br>
     <button id="analyze">Analyse...🔎</button>
     <p id="output"></p> 
 
@@ -31,12 +29,12 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             if (typeof Chessboard !== "undefined") {
-                var board = Chessboard("board", {
+                let board = Chessboard("board", {
                     position: "start",
                     pieceTheme: "https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png"
                 });
             } else {
-                console.error("⚠️ Chessboard.js wurde nicht geladen!");
+                console.error("Chessboard.js wurde nicht geladen!");
             }
         });
         </script>

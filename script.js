@@ -6,6 +6,7 @@ let pgnText;
 // }
 document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
+    document.getElementById("output").textContent = "Loading..."
 
     fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
@@ -14,14 +15,11 @@ document.getElementById("analyze").addEventListener("click", function(){
         },
         body: JSON.stringify({ pgn: pgnInput})
     })
-    .then(document.getElementById("output").textContent = "Loading...")
     .then(response => response.json())
     .then(data => {
         pgnText = data.pgn;
         document.getElementById("output").textContent = pgnText;
         console.log("Server response", data);
     })
-    
-
     
 });
