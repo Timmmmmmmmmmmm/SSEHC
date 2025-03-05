@@ -16,7 +16,7 @@ document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
     document.getElementById("output").textContent = "Loading...";
     board.position("start");
-    fetch("http://127.0.0.1:5000/analyze",{
+    fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
         headers: {
             "Content-Type": "application/json"

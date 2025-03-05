@@ -15,4 +15,3 @@ print("Normal Game: " , len(list(game1.mainline_moves())), "\n")
 print("Empty/Wrong Game: ",game2.mainline_moves())
 moves = []
 
-cbcv
