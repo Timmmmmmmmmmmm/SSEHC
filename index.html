@@ -4,31 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schachmaster by Tim</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
     <!-- jQuery einbinden -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Chessboard.js und Chessboars.css -->
+    <!-- Chessboard.js + Chessboars.css + Chess.js -->
     <link rel="stylesheet" href="css/chessboard.css">
     <script src="js/chessboard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-
+    <style>
+        .body{
+            background-color:#020617
+        }
+        .main-header{
+            font-family: 'Trebuchet MS',sans-serif; 
+            text-align: center;
+            text-decoration: underline;
+            color:whitesmoke
+            
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .board-panel{
+            
+        }
+        .info-panel{
+            margin-left:15px;
+            padding: 10px;
+            background-color:#1e1e1e;
+            width:30%;
+            height: 800px;
+            border-radius: 10px;
+            display: grid;
+            align-items: center;
+        }
+        .analyze-button{
+            width: 90%;
+            height: 70px;
+            color: white;
+            border:10px solid #1e293b;
+            border-radius: 10px;
+            background-color: #020617;
+            font-family: 'Trebuchet MS',sans-serif;
+            font-size: 20px;
+            float: middle;
+        }
+        .pgn_input{
+            width: 90%; 
+            height:10%; 
+            border:10px solid #1e293b;
+            border-radius: 10px;
+            background-color: #020617;
+            font-family: 'Trebuchet MS',sans-serif;
+            font-size: 20px;
+            color:white;
+        }
+        .names{
+            color: white;
+            font-size: 20px;
+            font-family: 'Trebuchet MS',sans-serif;
+            background-color: #1e293b;
+            border-radius: 5px;
+        }
+        .board{
+            border:10px solid #1e293b;
+            border-radius: 15px;
+        }
+        .output{
+            color: white;
+            font-size: 20px;
+            font-family: 'Trebuchet MS',sans-serif;
+        }
+    </style>
 </head>
 
-<body id="body"> 
+<body class="body"> 
     <audio id="sound-fx-move" class="sound-fx-board"></audio>
-    <h1 id="header" style="text-align: center">Schachmaster Analyse by Tim</h1>
-
-    <!-- Brett Anzeige -->
-    <p id="black">Black Player (?)</p>
-    <div id="board" style="width: 700px"></div>
-    <p id="white">White Player (?)</p>
-    <br>
-    <textarea id="pgn_input" autofocus placeholder="Paste PGN here..." style="width: 694px; height:50px" rows="4"></textarea><br>
-    <button id="analyze" style="width: 700px; height: 50px">Analyse...🔎</button>
-    <p id="output"></p>
-    <p id="test"></p>
-
+    <h1 id="header" class="main-header">Schachmaster Analyse by Tim</h1>
+    
+    <!-- Anzeige -->
+    <div class="main">
+        <div class="board-panel">
+            <p id="black" class="names"> Black Player (?)</p>
+            <div id="board" class="board" style="width: 700px"></div>
+            <p id="white" class="names"> White Player (?)</p>
+        </div>
+        <div class="info-panel">
+            <textarea id="pgn_input" class="pgn_input" autofocus placeholder="Paste PGN here..." row="4"></textarea>
+            <button class="analyze-button" id="analyze">Analyse...🔎</button>
+            <p id="output" class="output"></p>
+        </div>
+        <p id="test"></p>
+    </div>
     <!-- SCRIPT -->
     <script defer src="js/script.js" defer></script>
 

@@ -26,12 +26,15 @@ document.getElementById("analyze").addEventListener("click", function(){
     .then(response => response.json())
     .then(data => {
         console.log("Server response", data);
-        moves = data;
-        content = data;
-        if(content.length > 0){
-            document.getElementById("output").textContent = content;
+        if(data.gamecreated){
+            moves = data.move_list;
+            document.getElementById("white").textContent = data.player_info.white + " (" + data.player_info.whiteElo + ")";
+            document.getElementById("black").textContent = data.player_info.black + " (" + data.player_info.blackElo + ")";
+            document.getElementById("output").textContent = "";
         }else{
             document.getElementById("output").textContent = "Invalid PGN!";
+            document.getElementById("white").textContent = "White Player (?)";
+            document.getElementById("black").textContent = "Black Player (?)";
         }
     });
      

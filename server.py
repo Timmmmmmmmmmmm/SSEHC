@@ -16,23 +16,33 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-
-
-    game = chess.pgn.read_game(pgn_stream)
-    if not game:
-        return jsonify("")
-    board = game.board()
+    player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
+    game = chess.pgn.read_game(pgn_stream)
+    response = {"gamecreated": False,"player_info": player_info, "move_list": move_list}
+
+    if not game:
+        return jsonify(response)
+    elif len(list(game.mainline_moves())) > 0:
+        response["gamecreated"] = True
+    else:
+        return jsonify(response)
+    
+    board = game.board()
+    player_info["white"] = game.headers["White"]
+    player_info["black"] = game.headers["Black"]
+    player_info["whiteElo"] = game.headers["WhiteElo"]
+    player_info["blackElo"] = game.headers["BlackElo"]
 
     for move in game.mainline_moves():
         board.push(move)
         move_list.append(move.uci())
     
 
-    #response = {"message": "Antwort erhalten!", "content": move_list}
+    response["move_list"] = move_list
+    response["player_info"] = player_info
 
-    
-    return jsonify(move_list) 
+    return jsonify(response) 
 
 if __name__ == '__main__':
     SSEHC.run(debug=True)
