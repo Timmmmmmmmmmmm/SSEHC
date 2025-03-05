@@ -3,7 +3,7 @@ from flask_cors import CORS
 import chess
 import chess.pgn
 import chess.engine
-from io import StringIO
+import io
 
 
 SSEHC = Flask(__name__)
@@ -15,18 +15,24 @@ STOCKFISH_PATH = "C:/Users/timka/Downloads/PROJEKT_SSECH/stockfish/stockfish-win
 def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
-    pgn_stream = StringIO(pgn_text)
+    pgn_stream = io.StringIO(pgn_text)
+
 
     game = chess.pgn.read_game(pgn_stream)
+    if not game:
+        return jsonify("")
+    board = game.board()
+    move_list = []
 
-    #moves = game.mainline_moves()
-
+    for move in game.mainline_moves():
+        board.push(move)
+        move_list.append(move.uci())
     
 
-    response = {"message": "PGN ist doof!", "pgn": pgn_text}
+    #response = {"message": "Antwort erhalten!", "content": move_list}
 
     
-    return jsonify(response) 
+    return jsonify(move_list) 
 
 if __name__ == '__main__':
     SSEHC.run(debug=True)

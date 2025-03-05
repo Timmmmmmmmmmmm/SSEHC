@@ -8,41 +8,29 @@
     <!-- jQuery einbinden -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Chessboard.js und Chess.js -->
+    <!-- Chessboard.js und Chessboars.css -->
     <link rel="stylesheet" href="css/chessboard.css">
-
-    <script defer src="js/chessboard.js"></script>
+    <script src="js/chessboard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 
 </head>
 
-<body> 
-    <h1>Schachmaster Analyse by Tim</h1>
+<body id="body"> 
+    <audio id="sound-fx-move" class="sound-fx-board"></audio>
+    <h1 id="header" style="text-align: center">Schachmaster Analyse by Tim</h1>
 
     <!-- Brett Anzeige -->
-    <div id="board" style="width: 400px"></div>
+    <p id="black">Black Player (?)</p>
+    <div id="board" style="width: 700px"></div>
+    <p id="white">White Player (?)</p>
     <br>
-    <textarea id="pgn_input" placeholder="Paste PGN here..." autofocus rows="2" cols="30"></textarea><br>
-    <button id="analyze">Analyse...🔎</button>
-    <p id="output"></p> 
+    <textarea id="pgn_input" autofocus placeholder="Paste PGN here..." style="width: 694px; height:50px" rows="4"></textarea><br>
+    <button id="analyze" style="width: 700px; height: 50px">Analyse...🔎</button>
+    <p id="output"></p>
+    <p id="test"></p>
 
-    <!-- Brett wird nach Laden der Seite erstellt -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            if (typeof Chessboard !== "undefined") {
-                let board = Chessboard("board", {
-                    position: "start",
-                    pieceTheme: "https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png"
-                });
-            } else {
-                console.error("Chessboard.js wurde nicht geladen!");
-            }
-        });
-        </script>
-        
-        
-
-    <!-- Analyze -->
-    <script defer src="script.js" defer></script>
+    <!-- SCRIPT -->
+    <script defer src="js/script.js" defer></script>
 
 </body>
 </html>
