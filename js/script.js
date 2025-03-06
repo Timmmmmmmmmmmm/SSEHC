@@ -18,7 +18,7 @@ document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
     document.getElementById("output").textContent = "Loading...";
     board.position("start");
-    fetch("http://127.0.0.1:5000/analyze",{
+    fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
@@ -51,10 +51,10 @@ document.addEventListener("keydown", function(event){
             game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
             board.position(game.fen());
             index++;
-            if(result.flags.includes("c")){
+            if(game.in_check()){
+                playSound("check");
+            }else if(result.flags.includes("c")){
                 playSound("capture");
-            }else if(game.in_check()){
-                playSound("move");
             }else if(game.in_checkmate()){
                 playSound("move");
             }else{
@@ -67,7 +67,6 @@ document.addEventListener("keydown", function(event){
             game.undo();
             board.position(game.fen());
             index--;
-            
         }
     }else if(key == "ArrowUp"){
         for(let i = index; i < moves.length; i++){
