@@ -2,21 +2,23 @@ let content;
 const empty = [];
 
 let index = 0;
-let board = Chessboard("board", {position: "start", pieceTheme: "https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png"});
+let board = Chessboard("board", {position: "start", pieceTheme: "images/pieces/{piece}.svg"});
 let game = new Chess();
 let moves = [];
+// Audio
+function playSound(sound){
+    let audio = new Audio(`sounds/${sound}.mp3`)
+    audio.play()
+}
 
-
-// for(let i = 0; i < initialPosition.length; i++){
-//     document.getElementById("board").textContent = initialPosition[i];
-// }
+// PGN an Backend schicken
 document.getElementById("analyze").addEventListener("click", function(){
     index = 0;
     game.reset();
     let pgnInput = document.getElementById("pgn_input").value;
     document.getElementById("output").textContent = "Loading...";
     board.position("start");
-    fetch("https://ssehc-backend.onrender.com/analyze",{
+    fetch("http://127.0.0.1:5000/analyze",{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
@@ -45,20 +47,34 @@ document.addEventListener("keydown", function(event){
     let key = event.key;
     if(key == "ArrowRight"){
         if(index < moves.length){
+            result = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
             game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
             board.position(game.fen());
             index++;
+            if(result.flags.includes("c")){
+                playSound("capture");
+            }else if(game.in_check()){
+                playSound("move");
+            }else if(game.in_checkmate()){
+                playSound("move");
+            }else{
+                playSound("move");
+            }
+            
         }
     }else if(key == "ArrowLeft"){
         if(index > 0){
             game.undo();
             board.position(game.fen());
             index--;
+            
         }
     }else if(key == "ArrowUp"){
         for(let i = index; i < moves.length; i++){
+            result = game.move({from: moves[i].slice(0,2), to: moves[i].slice(2,4) });
             game.move({from: moves[i].slice(0,2), to: moves[i].slice(2,4) });
             board.position(game.fen());
+            
             
         }
         index = moves.length;
@@ -66,5 +82,6 @@ document.addEventListener("keydown", function(event){
         game.reset()
         board.position(game.fen());
         index = 0;
+        
     }
 });
