@@ -24,7 +24,7 @@ def analyze_pgn():
     debug = "wer das liest ist doof"
     game = chess.pgn.read_game(pgn_stream)
     try:
-        engine_test = subprocess.run(["wich", "stockfish"], capture_output=True, text=True)
+        engine_test = subprocess.run(["which", "stockfish"], capture_output=True, text=True)
         debug = f"Stockfish is under: {engine_test.stdout.strip()}"
         #engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
     except Exception as e:
