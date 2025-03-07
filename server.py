@@ -3,20 +3,18 @@ from flask_cors import CORS
 import chess
 import chess.pgn
 import chess.engine
-from stockfish import Stockfish
 import io
 
 
 SSEHC = Flask(__name__)
 CORS(SSEHC)
-STOCKFISH_PATH = Stockfish()._stockfish
-engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
 
 @SSEHC.route('/analyze', methods=['POST'])
 def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
+    engine = chess.engine.SimpleEngine.popen_uci("./stockfish")
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
