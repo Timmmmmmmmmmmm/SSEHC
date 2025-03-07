@@ -18,6 +18,8 @@ document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
     document.getElementById("output").textContent = "Loading...";
     board.position("start");
+    // https://ssehc-backend.onrender.com/analyze
+    // http://127.0.0.1:5000
     fetch("https://ssehc-backend.onrender.com/analyze",{
         method:"POST",
         headers: {
@@ -30,7 +32,7 @@ document.getElementById("analyze").addEventListener("click", function(){
         console.log("Server response", data);
         if(data.gamecreated){
             moves = data.move_list;
-            document.getElementById("output").style.background = "";
+            document.getElementById("output").style.background = "#4caf50";
             document.getElementById("analyze").textContent = "Analyse...🔎";
             document.getElementById("output").textContent = "➡ Use the Arrow Keys to navigate through the Game! ➡";
             document.getElementById("white").textContent = data.player_info.white + " (" + data.player_info.whiteElo + ")";

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import subprocess
 import chess
 import chess.pgn
 import chess.engine
@@ -14,7 +15,8 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    STOCKFISH_PATH = "usr/games/Stockfish"
+    STOCKFISH_PATH = "/stockfish"
+    #STOCKFISH_PATH = "usr/games/Stockfish"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
@@ -22,10 +24,13 @@ def analyze_pgn():
     debug = "wer das liest ist doof"
     game = chess.pgn.read_game(pgn_stream)
     try:
-        engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-        debug = "Stockfish gestartet"
-    except FileNotFoundError:
-        debug = "Stockfish nicht geladen"
+        engine_test = subprocess.run(["wich ", "stockfish"], capture_output=True, text=True)
+        debug = f"Stockfish is under: {engine_test.stdout.strip()}"
+        #engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    except Exception as e:
+        debug = f"Error checking Stockfish: {e}"
+    else:
+        debug = "Stockfish geladen!"
 
 
     response = {
