@@ -4,4 +4,4 @@ wget -O stockfish https://github.com/official-stockfish/Stockfish/releases/lates
 chmod +x stockfish
 echo "Stockfish is ready!"
 python server.py
-gunicorn server:SSEHC  
+gunicorn server:SSEHC

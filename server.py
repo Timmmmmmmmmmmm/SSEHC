@@ -14,7 +14,7 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    engine = chess.engine.SimpleEngine.popen_uci("./stockfish")
+    #engine = chess.engine.SimpleEngine.popen_uci("./stockfish")
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
@@ -54,7 +54,7 @@ def analyze_pgn():
     response["move_eva"] = move_eva
     response["best_moves"] = best_moves
     
-    engine.quit()
+    #engine.quit()
     return jsonify(response) 
 
 if __name__ == '__main__':
