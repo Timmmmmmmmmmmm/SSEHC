@@ -3,12 +3,13 @@ from flask_cors import CORS
 import chess
 import chess.pgn
 import chess.engine
+from stockfish import Stockfish
 import io
 
 
 SSEHC = Flask(__name__)
 CORS(SSEHC)
-STOCKFISH_PATH = "stockfish/stockfish-windows-x86-64-avx2.exe"
+STOCKFISH_PATH = Stockfish()._stockfish
 engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
 
 @SSEHC.route('/analyze', methods=['POST'])
@@ -18,7 +19,7 @@ def analyze_pgn():
     pgn_stream = io.StringIO(pgn_text)
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
-    move_ratings = []
+    move_eva = []
     best_moves = []
     game = chess.pgn.read_game(pgn_stream)
 
@@ -26,7 +27,7 @@ def analyze_pgn():
         "gamecreated": False,
         "player_info": player_info,
         "move_list": move_list,
-        "move_ratings": move_ratings,
+        "move_eva": move_eva,
         "best_moves": best_moves}
 
     if not game:
@@ -52,7 +53,7 @@ def analyze_pgn():
 
     response["move_list"] = move_list
     response["player_info"] = player_info
-    response["move_ratings"] = move_ratings
+    response["move_eva"] = move_eva
     response["best_moves"] = best_moves
     
     engine.quit()
