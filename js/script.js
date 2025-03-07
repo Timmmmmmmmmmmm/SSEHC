@@ -18,7 +18,7 @@ document.getElementById("analyze").addEventListener("click", function(){
     let pgnInput = document.getElementById("pgn_input").value;
     document.getElementById("output").textContent = "Loading...";
     board.position("start");
-    fetch("https://ssehc-backend.onrender.com/analyze",{
+    fetch("http://127.0.0.1:5000/analyze",{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
@@ -30,10 +30,13 @@ document.getElementById("analyze").addEventListener("click", function(){
         console.log("Server response", data);
         if(data.gamecreated){
             moves = data.move_list;
+            document.getElementById("output").style.background = "";
+            document.getElementById("analyze").textContent = "Analyse...🔎";
+            document.getElementById("output").textContent = "➡ Use the Arrow Keys to navigate through the Game! ➡";
             document.getElementById("white").textContent = data.player_info.white + " (" + data.player_info.whiteElo + ")";
             document.getElementById("black").textContent = data.player_info.black + " (" + data.player_info.blackElo + ")";
-            document.getElementById("output").textContent = "";
         }else{
+            document.getElementById("output").style.background = "#833534";
             document.getElementById("output").textContent = "Invalid PGN!";
             document.getElementById("white").textContent = "White Player (?)";
             document.getElementById("black").textContent = "Black Player (?)";
@@ -53,6 +56,7 @@ document.addEventListener("keydown", function(event){
             index++;
             if(game.in_check()){
                 playSound("check");
+
             }else if(result.flags.includes("c")){
                 playSound("capture");
             }else if(game.in_checkmate()){

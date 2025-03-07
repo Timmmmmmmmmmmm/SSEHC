@@ -9,7 +9,7 @@ import io
 SSEHC = Flask(__name__)
 CORS(SSEHC)
 STOCKFISH_PATH = "C:/Users/timka/Downloads/PROJEKT_SSECH/stockfish/stockfish-windows-x86-64-avx2.exe"
-
+engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
 
 @SSEHC.route('/analyze', methods=['POST'])
 def analyze_pgn():
@@ -18,8 +18,16 @@ def analyze_pgn():
     pgn_stream = io.StringIO(pgn_text)
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
+    move_ratings = []
+    best_moves = []
     game = chess.pgn.read_game(pgn_stream)
-    response = {"gamecreated": False,"player_info": player_info, "move_list": move_list}
+
+    response = {
+        "gamecreated": False,
+        "player_info": player_info,
+        "move_list": move_list,
+        "move_ratings": move_ratings,
+        "best_moves": best_moves}
 
     if not game:
         return jsonify(response)
@@ -37,10 +45,13 @@ def analyze_pgn():
     for move in game.mainline_moves():
         board.push(move)
         move_list.append(move.uci())
+        
     
 
     response["move_list"] = move_list
     response["player_info"] = player_info
+    response["move_ratings"] = move_ratings
+    response["best_moves"] = best_moves
 
     return jsonify(response) 
 

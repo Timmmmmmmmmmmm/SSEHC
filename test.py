@@ -11,7 +11,8 @@ pgn_empty = "asdsdaads"
 pgn_stream2 = StringIO(pgn_empty)
 game1 = chess.pgn.read_game(pgn_stream1) 
 game2 = chess.pgn.read_game(pgn_stream2)
-print("Normal Game: " , len(list(game1.mainline_moves())), "\n")
-print("Empty/Wrong Game: ",game2.mainline_moves())
+print(list(game1.mainline_moves()), "\n")
+print(pgn_stream1)
+#print("Empty/Wrong Game: ",game2.mainline_moves())
 moves = []
 
