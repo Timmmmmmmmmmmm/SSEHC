@@ -8,26 +8,33 @@ import io
 
 SSEHC = Flask(__name__)
 CORS(SSEHC)
-STOCKFISH_PATH = "usr/games/Stockfish"
 
 @SSEHC.route('/analyze', methods=['POST'])
 def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    STOCKFISH_PATH = "usr/games/Stockfish"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
     best_moves = []
+    debug = "wer das liest ist doof"
     game = chess.pgn.read_game(pgn_stream)
+    try:
+        engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+        debug = "Stockfish gestartet"
+    except FileNotFoundError:
+        debug = "Stockfish nicht geladen"
+
 
     response = {
         "gamecreated": False,
         "player_info": player_info,
         "move_list": move_list,
         "move_eva": move_eva,
-        "best_moves": best_moves}
+        "best_moves": best_moves,
+        "DEBUG": debug}
 
     if not game:
         return jsonify(response)
