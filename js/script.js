@@ -51,7 +51,11 @@ document.addEventListener("keydown", function(event){
     if(key == "ArrowRight"){
         if(index < moves.length){
             result = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
-            game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
+            game.move({
+                from: moves[index].slice(0,2), 
+                to: moves[index].slice(2,4),
+                promotion: moves[index].slice(4)
+                });
             board.position(game.fen());
             index++;
             if(game.in_check()){
