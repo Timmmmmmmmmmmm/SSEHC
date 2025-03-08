@@ -16,8 +16,8 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
-    #STOCKFISH_PATH = "usr/games/Stockfish"
+    #STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
+    STOCKFISH_PATH = "usr/games/Stockfish"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
@@ -68,7 +68,7 @@ def analyze_pgn():
         best_moves.append(bestM.move.uci())
         move_list.append(move.uci())
 
-    
+    engine.quit()
 
     response["move_list"] = move_list
     response["player_info"] = player_info
@@ -76,7 +76,6 @@ def analyze_pgn():
     response["best_moves"] = best_moves
     response["result"] = game.headers["Result"]
      
-    #engine.quit()
     return jsonify(response) 
 
 if __name__ == '__main__':
