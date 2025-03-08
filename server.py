@@ -16,8 +16,8 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
-    #STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
+    #STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
+    STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
