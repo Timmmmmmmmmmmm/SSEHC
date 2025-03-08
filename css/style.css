@@ -1,0 +1,226 @@
+@media(max-width: 1200px){
+    .board-panel{
+        width: 100%;
+        max-width: 475px;
+    }
+    .board{
+        width: 100%;
+        max-width: 475px;
+        max-height: 475px;
+    }
+    .main{
+        max-height: 600px;
+    }
+    .output{
+        font-size: 17px !important;
+    }
+}
+@media(max-width: 800px){
+    .main{
+        flex-direction: column;
+    }
+    .board-panel{
+        max-width: 500px;
+    }
+    .info-panel{
+        width: 90%;
+    }
+}
+@keyframes loading-mode{
+    from{
+        opacity: 0;
+        background-color: inherit;
+    }
+    to{
+        opacity: 1;
+        background-color: #749bbf;
+    }
+}
+@keyframes nav-mode{
+    from{
+        opacity: 1;
+        background-color: #749bbf;
+    }
+    to{
+        opacity: 1;
+        background-color: #4caf50;
+    }
+}
+@keyframes error-mode{
+    from{
+        opacity: 1;
+        background-color: #749bbf;
+    }
+    to{
+        opacity: 1;
+        background-color: #833534;
+    }
+}
+.body{
+    background-color: #020617;
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: whitesmoke;
+
+}
+.main-header{
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'Trebuchet MS',sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    height: 6vh;
+    line-height: 5vh;
+    color:whitesmoke;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 800px;
+    gap: 40px
+}
+/* Board Panel */
+.board-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 700px;
+    height: 100%;
+    justify-content: center;
+}
+.board{
+    display: block;
+    width: 700px;
+    aspect-ratio: 1/1;
+    border: 12px solid #1e293b;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    
+}
+.name{
+    width: 100%;
+    margin: 0;
+    padding: 6px;
+    color: white;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-family: 'Trebuchet MS',sans-serif;
+    background-color: #1e293b;
+    border: 5px solid #1e293b;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    
+}
+/* Info Panel */
+.info-panel{
+    padding-top: 15px;
+    background-color:#1e1e1e;
+    width:30%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+.info-main{
+    width: 100%;
+    height: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pgn_input{
+    width: 90%; 
+    height:12%; 
+    border:10px solid #1e293b;
+    border-radius: 10px;
+    background-color: #020617;
+    font-family: 'Trebuchet MS',sans-serif;
+    font-size: 20px;
+    color:white;
+    resize: none;
+    overflow-y: hidden;
+    box-sizing: border-box;
+}
+.analyze-button{
+    margin-top: 10px;
+    width: 90%;
+    height: 9%;
+    color: white;
+    border:10px solid #1e293b;
+    border-radius: 10px;
+    background-color: #020617;
+    font-family: 'Trebuchet MS',sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.analyze-button:hover{
+    border-color: #4caf50;
+    /*background-color: #4caf50;*/
+}
+.output{
+    color: white;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 7%;
+    font-size: 20px;
+    border-radius: 7px;
+    font-family: 'Trebuchet MS',sans-serif;
+    overflow-y: auto;
+    overflow: hidden;
+    opacity: 1;
+    transition: text 2s ease-in-out;
+}
+.output.loading{
+    animation: loading-mode 2s ease-in-out forwards;
+}
+.output.nav{
+    animation: nav-mode 2s ease-in-out forwards; 
+}
+.output.error{
+    animation: error-mode 2s ease-in-out forwards;
+}
+.toolbar{
+    width: 100%;
+    margin-bottom: 1.5%;
+    height: 8%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    box-sizing: border-box;
+}
+.button{
+    color: white;
+    margin: auto;
+    margin-top: 0px;
+    padding: 0%;
+    border:10px solid #1e293b;
+    border-radius: 10px;
+    background-color: #020617;
+    font-family: 'Trebuchet MS',sans-serif;
+    justify-content: center;
+    line-height: 50%;
+    height: 100%;
+    width: 15%;
+    transition: 0.5s;
+}
+.button:hover{
+    border-color: #749bbf;
+    cursor: pointer;
+}
