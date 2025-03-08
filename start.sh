@@ -5,3 +5,5 @@ chmod +x stockfish
 echo "Stockfish is ready!"
 python server.py
 gunicorn server:SSEHC
+
+!# wget https://github.com/official-stockfish/Stockfish/releases/download/sf_17/stockfish-ubuntu-x86-64.tar && tar -xvf stockfish-ubuntu-x86-64.tar && chmod +x stockfish/stockfish-ubuntu-x86-64 && gunicorn server:SSEHC

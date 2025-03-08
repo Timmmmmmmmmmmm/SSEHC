@@ -181,7 +181,6 @@
     overflow-y: auto;
     overflow: hidden;
     opacity: 1;
-    transition: text 2s ease-in-out;
 }
 .output.loading{
     animation: loading-mode 2s ease-in-out forwards;
@@ -192,6 +191,47 @@
 .output.error{
     animation: error-mode 2s ease-in-out forwards;
 }
+
+.accuracy{
+    color: white;
+    display: flex;
+    text-align: center;
+    width: 90%;
+    height: 7%;
+    font-size: 20px;
+    border-radius: 7px;
+    font-family: 'Trebuchet MS',sans-serif;
+    transition: text 2s ease-in-out;
+    display: block;
+}
+.move-eva{
+    color: white;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 7%;
+    font-size: 20px;
+    border-radius: 7px;
+    font-family: 'Trebuchet MS',sans-serif;
+    opacity: 1;
+    
+}
+.best-move{
+    color: #81b64c;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 5%;
+    font-size: 15px;
+    border-radius: 7px;
+    font-family: 'Trebuchet MS',sans-serif;
+    opacity: 1;
+}
+/*----------------------------------*/
 .toolbar{
     width: 100%;
     margin-bottom: 1.5%;

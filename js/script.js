@@ -33,7 +33,7 @@ analyze.addEventListener("click", function(){
     website =  "https://ssehc-backend.onrender.com/analyze"
     local = "http://127.0.0.1:5000/analyze"
 
-    fetch(website,{
+    fetch(local,{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
