@@ -37,7 +37,7 @@ def analyze_pgn():
  
     
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-    engine.configure({"Hash": 256, "Threads": 4})
+    engine.configure({"Hash": 32, "Threads": 1})
 
     response = {
         "gamecreated": False,
