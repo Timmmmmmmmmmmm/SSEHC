@@ -6,6 +6,7 @@ import chess.pgn
 import chess.engine
 import chess.polyglot
 import io
+import os
 
 
 SSEHC = Flask(__name__)
@@ -24,15 +25,16 @@ def analyze_pgn():
     best_moves = []
     debug = "wer das liest ist doof"
     game = chess.pgn.read_game(pgn_stream)
-    #try:
-        #engine_test = subprocess.run(["which", "stockfish"], capture_output=True, text=True)
+
+    if not os.path.exists(STOCKFISH_PATH):
+        return(FileNotFoundError(f"Stockfish is under: {STOCKFISH_PATH}"))
+    try:
+        engine_test = subprocess.run(["which", "stockfish"], capture_output=True, text=True)
         #engine_test = subprocess.run(["where", "stockfish"], capture_output=True, text=True, shell=True)
-        #debug = f"Stockfish is under: {engine_test.stdout.strip()}"
-        
-    #except Exception as e:
-        #debug = f"Error checking Stockfish: {e}"
-    #else:
-        #debug = "Stockfish geladen!"
+        debug = f"Stockfish is under: {engine_test.stdout.strip()}"
+    except Exception as e:
+        debug = f"Error checking Stockfish: {e}"
+ 
     
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
 
