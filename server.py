@@ -37,7 +37,7 @@ def analyze_pgn():
  
     
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-
+    engine.configure({"Hash": 256, "Threads": 4})
 
     response = {
         "gamecreated": False,
@@ -64,8 +64,8 @@ def analyze_pgn():
 
     for move in game.mainline_moves():
         board.push(move)
-        bestM = engine.play(board, chess.engine.Limit(time=1.0))
-        info = engine.analyse(board, chess.engine.Limit(time=1.0))
+        bestM = engine.play(board, chess.engine.Limit(time=4.0))
+        info = engine.analyse(board, chess.engine.Limit(time=4.0))
         move_eva.append(info["score"].relative.score() / 100)
         best_moves.append(bestM.move.uci())
         move_list.append(move.uci())
