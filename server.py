@@ -17,8 +17,8 @@ def analyze_pgn():
     data = request.json  #JSON-Daten von JavaScript 
     pgn_text = data.get("pgn")
     pgn_stream = io.StringIO(pgn_text)
-    #STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
-    STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
+    STOCKFISH_PATH = r"C:\Users\timka\Documents\stockfish\stockfish.exe"
+    #STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
     move_eva = []
@@ -26,6 +26,7 @@ def analyze_pgn():
     debug = "wer das liest ist doof"
     game = chess.pgn.read_game(pgn_stream)
 
+    """
     if not os.path.exists(STOCKFISH_PATH):
         return(FileNotFoundError(f"Stockfish is under: {STOCKFISH_PATH}"))
     try:
@@ -35,9 +36,10 @@ def analyze_pgn():
     except Exception as e:
         debug = f"Error checking Stockfish: {e}"
  
-    
+    """
+
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-    engine.configure({"Hash": 32, "Threads": 1})
+    engine.configure({"Hash": 256, "Threads": 16})
 
     response = {
         "gamecreated": False,
@@ -64,8 +66,8 @@ def analyze_pgn():
 
     for move in game.mainline_moves():
         board.push(move)
-        bestM = engine.play(board, chess.engine.Limit(time=4.0))
-        info = engine.analyse(board, chess.engine.Limit(time=4.0))
+        bestM = engine.play(board, chess.engine.Limit(time=1.0))
+        info = engine.analyse(board, chess.engine.Limit(time=1.0))
         move_eva.append(info["score"].relative.score() / 100)
         best_moves.append(bestM.move.uci())
         move_list.append(move.uci())

@@ -2,16 +2,20 @@ let content;
 const empty = [];
 
 let index = 0;
-let board = Chessboard("board", {position: "start", pieceTheme: "images/pieces/{piece}.svg"});
+let board = Chessboard("board", {position: "start", pieceTheme: "images/pieces/{piece}.svg", draggable: false});
 let game = new Chess();
 let moves = [];
 let result = "";
+let best_moves = [];
+let best_move;
+
 // Objects Definition
 const output = document.getElementById("output");
 const analyze = document.getElementById("analyze");
 const pWhite = document.getElementById("white");
 const pBlack = document.getElementById("black");
 const eva = document.getElementById("Eva");
+const bMove = document.getElementById("best-move");
 // Audio
 function playSound(sound){
     let audio = new Audio(`sounds/${sound}.mp3`)
@@ -31,9 +35,9 @@ analyze.addEventListener("click", function(){
 
 
     website =  "https://ssehc-backend.onrender.com/analyze"
-    local = "http://127.0.0.1:5000/analyze"
+    flask = "http://127.0.0.1:5000/analyze"
 
-    fetch(website,{
+    fetch(flask,{
         method:"POST",
         headers: {
             "Content-Type": "application/json"
@@ -46,6 +50,7 @@ analyze.addEventListener("click", function(){
         if(data.gamecreated){
             moves = data.move_list;
             result = data.result;
+            best_moves = data.best_moves;
             index = 0;
             //document.querySelector(".output").classList.add("nav");
             output.style.background = "#4caf50";
@@ -75,6 +80,11 @@ document.addEventListener("keydown", function(event){
                 to: moves[index].slice(2,4),
                 promotion: moves[index].slice(4)
                 });
+            /*best_move = game.move({
+                from: best_moves[index].slice(0,2), 
+                to: best_moves[index].slice(2,4),
+                promotion: best_moves[index].slice(4)}).san
+            bMove.textContent = best_move;*/
             board.position(game.fen());
             index++;
             if(game.in_check()){
