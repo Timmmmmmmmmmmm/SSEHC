@@ -2,7 +2,11 @@ let content;
 const empty = [];
 
 let index = 0;
-let board = Chessboard("board", {position: "start", pieceTheme: "images/pieces/{piece}.svg", draggable: false});
+let board = Chessboard("board", {position: "start", 
+                                 pieceTheme: "images/pieces/{piece}.svg", 
+                                 draggable: false,
+                                 dropOffBoard: "snapback",
+                                 moveSpeed: "fast"});
 let game = new Chess();
 let moves = [];
 let result = "";
@@ -21,6 +25,15 @@ function playSound(sound){
     let audio = new Audio(`sounds/${sound}.mp3`)
     audio.play()
 }
+
+//Board Rezise
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() =>{
+        board.resize();
+    }, 200);
+});
 
 // PGN an Backend schicken
 analyze.addEventListener("click", function(){
@@ -74,23 +87,17 @@ document.addEventListener("keydown", function(event){
     let key = event.key;
     if(key == "ArrowRight"){
         if(index < moves.length){
-            flag = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
-            game.move({
-                from: moves[index].slice(0,2), 
-                to: moves[index].slice(2,4),
-                promotion: moves[index].slice(4)
-                });
-            /*best_move = game.move({
-                from: best_moves[index].slice(0,2), 
-                to: best_moves[index].slice(2,4),
-                promotion: best_moves[index].slice(4)}).san
-            bMove.textContent = best_move;*/
+            //flag = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
+            /*best_move = game.move({from: best_moves[index].slice(0,2), to: best_moves[index].slice(2,4), promotion: best_moves[index].slice(4)});
+            bMove.textContent = best_move.san;
+            game.undo();*/
+            move = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4),promotion: moves[index].slice(4)});
             board.position(game.fen());
             index++;
             if(game.in_check()){
                 playSound("check");
 
-            }else if(flag.flags.includes("c")){
+            }else if(move.flags.includes("c")){
                 playSound("capture");
             }else if(game.in_checkmate()){
                 playSound("move");
@@ -177,17 +184,12 @@ document.getElementById("left").addEventListener("click", function(){
 });
 document.getElementById("right").addEventListener("click", function(){
     if(index < moves.length){
-        flag = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
-        game.move({
-            from: moves[index].slice(0,2), 
-            to: moves[index].slice(2,4),
-            promotion: moves[index].slice(4)
-            });
+        //flag = game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4) });
+        game.move({from: moves[index].slice(0,2), to: moves[index].slice(2,4), promotion: moves[index].slice(4)});
         board.position(game.fen());
         index++;
         if(game.in_check()){
             playSound("check");
-
         }else if(flag.flags.includes("c")){
             playSound("capture");
         }else if(game.in_checkmate()){

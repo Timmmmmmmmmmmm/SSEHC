@@ -23,7 +23,7 @@ def analyze_pgn():
     move_list = []
     move_eva = []
     best_moves = []
-    debug = "wer das liest ist doof"
+    debug = "Gassenfrechdachs"
     game = chess.pgn.read_game(pgn_stream)
 
     """
@@ -39,7 +39,7 @@ def analyze_pgn():
     """
 
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-    engine.configure({"Hash": 256, "Threads": 16})
+    engine.configure({"Hash": 1024, "Threads": 4})
 
     response = {
         "gamecreated": False,
