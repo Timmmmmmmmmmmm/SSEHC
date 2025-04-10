@@ -21,7 +21,7 @@ def analyze_pgn():
     #STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
-    move_eva = []
+    move_eva = [0]
     best_moves = []
     debug = "Gassenfrechdachs"
     game = chess.pgn.read_game(pgn_stream)
@@ -66,11 +66,19 @@ def analyze_pgn():
 
     for move in game.mainline_moves():
         board.push(move)
-        bestM = engine.play(board, chess.engine.Limit(time=1.0))
-        info = engine.analyse(board, chess.engine.Limit(time=1.0))
-        move_eva.append(info["score"].relative.score() / 100)
-        best_moves.append(bestM.move.uci())
+        bestM = engine.play(board, chess.engine.Limit(depth=16))
+        info = engine.analyse(board, chess.engine.Limit(depth=16))
+        score = info["score"].relative
+        if score.is_mate():
+            move_eva.append(score.score())
+        else:
+            move_eva.append(round(score.score() / 100, 1))
+        if bestM.move:
+            best_moves.append(bestM.move.uci())
         move_list.append(move.uci())
+
+    for x in range(1, len(move_eva), 2):
+        move_eva[x] *= -1
 
     engine.quit()
 
@@ -81,6 +89,15 @@ def analyze_pgn():
     response["result"] = game.headers["Result"]
      
     return jsonify(response) 
+
+@SSEHC.route('/check', methods=['POST'])
+def waitingForPlayer():
+    data = request.json  #JSON-Daten von JavaScript 
+    
+
+
+
+
 
 if __name__ == '__main__':
     SSEHC.run(debug=True)

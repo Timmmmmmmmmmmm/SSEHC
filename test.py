@@ -27,3 +27,36 @@ cp_score = info["score"].relative.mate()
 
 print("Bewertung:", cp_score)
 
+""" 
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2024.09.03"]
+[Round "-"]
+[White "Timkai"]
+[Black "edxerl"]
+[Result "1-0"]
+[CurrentPosition "Bn5B/p1ppbk2/1p2pp1n/8/3P4/4P3/PP3PPP/RN2K2R b KQ -"]
+[Timezone "UTC"]
+[ECO "A40"]
+[ECOUrl "https://www.chess.com/openings/English-Defense"]
+[UTCDate "2024.09.03"]
+[UTCTime "13:46:19"]
+[WhiteElo "1297"]
+[BlackElo "1284"]
+[TimeControl "600"]
+[Termination "Timkai won by resignation"]
+[StartTime "13:46:19"]
+[EndDate "2024.09.03"]
+[EndTime "13:50:01"]
+[Link "https://www.chess.com/analysis/game/live/119110203993?tab=analysis&move=24"]
+[WhiteUrl "https://images.chesscomfiles.com/uploads/v1/user/83580632.17b80883.50x50o.2112965a3347.jpg"]
+[WhiteCountry "54"]
+[WhiteTitle ""]
+[BlackUrl "https://images.chesscomfiles.com/uploads/v1/user/331717345.290bc3aa.50x50o.90b834cdaa3e.jpg"]
+[BlackCountry "111"]
+[BlackTitle ""]
+
+1. d4 b6 2. Bf4 $6 Bb7 3. e3 e6 4. Nf3 Qf6 $2 5. Bd3 $6 Bd6 $2 6. Bg5 $1 Bxf3 7. Bxf6
+Bxd1 8. Bxg7 $1 Bxc2 $6 9. Bxc2 Be7 10. Bxh8 f6 11. Bxh7 Kf7 12. Be4 Nh6 $6 13. Bxa8
+1-0
+"""

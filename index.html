@@ -6,7 +6,7 @@
     <title>Schachmaster by Tim</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- jQuery einbinden -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Chessboard.js + Chessboars.css + Chess.js -->
@@ -22,6 +22,9 @@
     
     <!-- Anzeige -->
     <div class="main">
+        <div class="eval-bar">
+            <p id="eva" class="eva">0.0</p>
+        </div>
         <div class="board-panel">
             <p id="black" class="name"> Black Player (?)</p>
             <div id="board" class="board"></div>
@@ -33,11 +36,11 @@
                 <button class="analyze-button" id="analyze">Analyse...🔎</button>
                 <p id="output" class="output"></p>
                 <p id="accuracy" class="accuracy"></p>
-                <p id="move-eva" class="move-eva"></p>
+                <p id="move_class" class="move-eva"></p>
                 <p id="best-move" class="best-move"></p>
             </div>
             <div id="toolbar" class="toolbar">
-                <button id="flip" class="button">🔄</button>
+                <button id="flip" disabled class="button">🔄</button>
                 <button id="hard-left" class="button">⏮</button>
                 <button id="left" class="button">◀</button>
                 <button id="right" class="button">▶</button>
