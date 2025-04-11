@@ -34,5 +34,5 @@ Das Projekt ist als Lernprojekt gedacht und wächst Stück für Stück.
 ├── script.js            # JavaScript für GUI und Interaktion
 ├── styles.css           # Look & Feel
 ├── assets/              # Icons, Bilder etc.
-├── analysis/            # Python-Code für Backend-Analyse
+├── server/              # Python-Code für Backend-Analyse
 └── README.md            # Du bist hier!
