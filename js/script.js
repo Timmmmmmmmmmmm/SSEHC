@@ -13,7 +13,9 @@ let move;
 let result;
 let best_moves = [];
 let best_move;
-let evas = [];
+let evals = [];
+let score = 0;
+let flipped = false;
 let winner;
 let loser;
 
@@ -22,8 +24,11 @@ const output = document.getElementById("output");
 const analyze = document.getElementById("analyze");
 const pWhite = document.getElementById("white");
 const pBlack = document.getElementById("black");
-const eva = document.getElementById("eva");
+const eva = document.getElementById("eval-score");
 const bMove = document.getElementById("best-move");
+const bar = document.getElementById("eval-bar");
+const fill = document.getElementById("eval-fill");
+
 // Audio
 function playSound(sound){
     let audio = new Audio(`sounds/${sound}.mp3`)
@@ -67,7 +72,7 @@ analyze.addEventListener("click", function(){
         if(data.gamecreated){
             moves = data.move_list;
             result = data.result;
-            evas = data.move_eva;
+            evals = data.move_eva;
             best_moves = data.best_moves;
             index = 0;
             //document.querySelector(".output").classList.add("nav");
@@ -106,6 +111,12 @@ function checkEnd(){
         }
     }
 }
+// UPDATE BAR
+function updateEvalBar(){
+    let clamp = Math.max(-10, Math.min(10, evals[index]));
+    let scaled = 50 + (clamp * 4);
+    fill.style.height = `${scaled}%`;
+}
 
     // RIGHT ->
 function moveRight(){
@@ -124,7 +135,7 @@ function moveRight(){
         });
         board.position(game.fen());
         index++;
-        eva.textContent = evas[index];
+        eva.textContent = Math.round(evals[index] * 10) / 10;
         if(game.in_check()){
             playSound("check");
         }else if(move.flags.includes("c")){
@@ -136,6 +147,7 @@ function moveRight(){
         }
     }
     checkEnd();
+    updateEvalBar()
 }
     // LEFT <- 
 function moveLeft(){
@@ -143,9 +155,10 @@ function moveLeft(){
         game.undo();
         board.position(game.fen());
         index--;
-        eva.textContent = evas[index];
+        eva.textContent = Math.round(evals[index] * 10) / 10;
         pWhite.style.borderColor = "#1e293b";
         pBlack.style.borderColor = "#1e293b";
+        updateEvalBar();
     }
 }
     // TO END OF GAME ->->
@@ -155,19 +168,20 @@ function toEnd(){
     }
     board.position(game.fen());
     index = moves.length;
-    eva.textContent = evas[index];
+    eva.textContent = Math.round(evals[index] * 10) / 10;
     checkEnd();
+    updateEvalBar();
 }
     // TO START OF GAME <-<-
 function toStart(){
     game.reset()
     board.position(game.fen());
     index = 0;
+    updateEvalBar();
     eva.textContent = "0.0";
     pWhite.style.borderColor = "#1e293b";
     pBlack.style.borderColor = "#1e293b";
 }
-
  
 document.addEventListener("keydown", function(event){
     let key = event.key;
@@ -181,7 +195,9 @@ document.addEventListener("keydown", function(event){
         toStart();
     }
 });
+
     // Buttons 
+
 document.getElementById("flip").addEventListener("click", function(){
     if(result == "1-0"){
         result = "0-1";
@@ -189,7 +205,7 @@ document.getElementById("flip").addEventListener("click", function(){
         result = "1-0";
     }
     board.flip();
-    let flip = "";
+    let flip;
     flip = pWhite.textContent;
     pWhite.textContent = pBlack.textContent;
     pBlack.textContent = flip;
@@ -197,6 +213,16 @@ document.getElementById("flip").addEventListener("click", function(){
     flip = pWhite.style.borderColor;
     pWhite.style.borderColor = pBlack.style.borderColor;
     pBlack.style.borderColor = flip;
+
+    if(!flipped){
+        fill.style.backgroundColor = "black";
+        bar.style.backgroundColor = "white";
+        flipped = true;
+    }else{
+        fill.style.backgroundColor = "white";
+        bar.style.backgroundColor = "black";
+        flipped = false;
+    }
 });
 document.getElementById("hard-left").addEventListener("click", function(){
     toStart();

@@ -21,7 +21,7 @@ def analyze_pgn():
     #STOCKFISH_PATH = "./stockfish/stockfish-ubuntu-x86-64"
     player_info = {"white": "", "black": "", "whiteElo": "?", "blackElo": "?"}
     move_list = []
-    move_eva = [0]
+    move_eva = [f"{0:.2f}"]
     best_moves = []
     debug = "Gassenfrechdachs"
     game = chess.pgn.read_game(pgn_stream)
@@ -72,13 +72,19 @@ def analyze_pgn():
         if score.is_mate():
             move_eva.append(score.score())
         else:
-            move_eva.append(round(score.score() / 100, 1))
+            move_eva.append(score.score()/100)
         if bestM.move:
             best_moves.append(bestM.move.uci())
         move_list.append(move.uci())
+    
+    for x in range(len(move_eva)):
+        if(type(move_eva[x]) == str and move_eva[x] != None):
+            eva = float(move_eva[x])
+            move_eva[x] = f"{eva:.2f}"
 
     for x in range(1, len(move_eva), 2):
-        move_eva[x] *= -1
+        if(move_eva[x] != None):
+            move_eva[x] *= -1
 
     engine.quit()
 
@@ -94,10 +100,6 @@ def analyze_pgn():
 def waitingForPlayer():
     data = request.json  #JSON-Daten von JavaScript 
     
-
-
-
-
 
 if __name__ == '__main__':
     SSEHC.run(debug=True)
