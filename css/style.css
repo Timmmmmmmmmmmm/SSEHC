@@ -104,6 +104,8 @@
 .eval-fill{
     display: flex;
     width: 100%;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     height: 50%;
     justify-content: center;
     align-items: flex-end;
